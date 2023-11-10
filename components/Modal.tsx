@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 function Modal() {
   return (
     <div className="fixed bg-black/20  inset-0 z-50">
-      <div className="relative top-[27%] flex-col flex m-auto translate-y-[-27%]  px-10 py-5 gap-3  bg-black max-w-3xl w-3/6">
+      <div className="relative top-[27%] flex-col flex m-auto translate-y-[-27%]  px-10 py-5 gap-3 rounded-xl shadow-md bg-black max-w-3xl w-3/6">
         <div className="flex justify-between items-center p-2">
           <h1 className="text-white text-[30px] font-semibold">Login</h1>
           <Icon
