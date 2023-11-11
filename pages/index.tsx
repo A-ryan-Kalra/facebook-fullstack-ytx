@@ -10,7 +10,6 @@ export default function Home() {
   return (
     <div>
       <Form label="What's happening?" />
-      <Modal />
     </div>
   );
 }

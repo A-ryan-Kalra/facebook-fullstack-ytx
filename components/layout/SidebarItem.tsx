@@ -13,10 +13,10 @@ function SidebarItem({ href, name, icon, onClick, rotate }: SidebarItemProps) {
   const router = useRouter();
 
   const handleClick = () => {
-    console.log(onClick);
     if (onClick) {
       return onClick();
     }
+
     router.push(`/${href}`);
   };
 

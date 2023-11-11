@@ -1,44 +1,33 @@
 import React, { useCallback, useState } from "react";
-import useRegisterModal from "@/hooks/useRegister";
 import Modal from "../Modal";
 import useLoginModal from "@/hooks/useLogin";
+import useRegisterModal from "@/hooks/useRegister";
 
-function RegisterModal() {
-  const register = useRegisterModal();
+function LoginModal() {
   const login = useLoginModal();
+  const register = useRegisterModal();
 
-  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
   const [isLoading, setIsloading] = useState(false);
+  const [email, setEmail] = useState("");
 
   const onToggle = useCallback(() => {
     if (isLoading) {
       return;
     }
-    register.onClose();
-    login.onOpen();
+    login.onClose();
+    register.onOpen();
   }, [login, register, isLoading]);
 
   const onSubmit = useCallback(() => {
-    setName("");
     setEmail("");
-    setUsername("");
     setPassword("");
 
-    register.onOpen();
-  }, [username, name, email, password, register]);
+    login.onOpen();
+  }, [email, password, login]);
 
   const body = (
     <form className="flex  flex-col gap-5 px-5  py-3">
-      <input
-        type="text"
-        className="h-[60px] focus:outline-none p-2 focus:ring-[2px] rounded-md ring-blue-500 focus:border-none border-zinc-600 border-2 bg-transparent text-white"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Name"
-      />
       <input
         type="email"
         className="h-[60px] focus:outline-none p-2 focus:ring-[2px] rounded-md ring-blue-500 focus:border-none border-zinc-600 border-2 bg-transparent text-white"
@@ -46,13 +35,7 @@ function RegisterModal() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <input
-        type="text"
-        className="h-[60px] focus:outline-none p-2 focus:ring-[2px] rounded-md ring-blue-500 focus:border-none border-zinc-600 border-2 bg-transparent text-white"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
+
       <input
         type="password"
         className="h-[60px] focus:outline-none p-2 focus:ring-[2px] rounded-md ring-blue-500 focus:border-none border-zinc-600 border-2 bg-transparent text-white"
@@ -65,12 +48,12 @@ function RegisterModal() {
   return (
     <Modal
       body={body}
-      toggle={onToggle}
-      isOpen={register.isOpen}
-      onClose={register.onClose}
+      isOpen={login.isOpen}
+      onClose={login.onClose}
       submit={onSubmit}
+      toggle={onToggle}
     />
   );
 }
 
-export default RegisterModal;
+export default LoginModal;
