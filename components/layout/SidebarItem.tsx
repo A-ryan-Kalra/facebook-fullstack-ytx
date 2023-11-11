@@ -1,6 +1,7 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
+import useRegisterModal from "@/hooks/useRegister";
 
 interface SidebarItemProps {
   href?: string;
@@ -11,12 +12,13 @@ interface SidebarItemProps {
 }
 function SidebarItem({ href, name, icon, onClick, rotate }: SidebarItemProps) {
   const router = useRouter();
+  const register = useRegisterModal();
 
   const handleClick = () => {
     if (onClick) {
       return onClick();
     }
-
+    register.onOpen();
     router.push(`/${href}`);
   };
 

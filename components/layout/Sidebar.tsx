@@ -1,6 +1,7 @@
 import React from "react";
 import SidebarItem from "./SidebarItem";
 import { Icon } from "@iconify/react";
+import { signOut } from "next-auth/react";
 
 function Sidebar() {
   const items = [
@@ -38,7 +39,9 @@ function Sidebar() {
         <SidebarItem
           name={"Logout"}
           icon={"material-symbols:logout-rounded"}
-          onClick={() => {}}
+          onClick={() => {
+            signOut();
+          }}
           rotate={2}
         />
       </div>

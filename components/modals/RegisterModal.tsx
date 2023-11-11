@@ -2,6 +2,8 @@ import React, { useCallback, useState } from "react";
 import useRegisterModal from "@/hooks/useRegister";
 import Modal from "../Modal";
 import useLoginModal from "@/hooks/useLogin";
+import axios from "axios";
+import { signIn } from "next-auth/react";
 
 function RegisterModal() {
   const register = useRegisterModal();
@@ -21,13 +23,36 @@ function RegisterModal() {
     login.onOpen();
   }, [login, register, isLoading]);
 
-  const onSubmit = useCallback(() => {
-    setName("");
-    setEmail("");
-    setUsername("");
-    setPassword("");
+  const onSubmit = useCallback(async () => {
+    try {
+      setIsloading(true);
 
-    register.onOpen();
+      await axios.post("/api/register", {
+        name,
+        username,
+        password,
+        email,
+      });
+
+      setIsloading(false);
+
+      signIn("credentials", {
+        email,
+        password,
+        // redirect: false,
+      });
+
+      setName("");
+      setEmail("");
+      setUsername("");
+      setPassword("");
+
+      register.onClose();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsloading(false);
+    }
   }, [username, name, email, password, register]);
 
   const body = (
