@@ -4,6 +4,7 @@ import Modal from "../Modal";
 import useLoginModal from "@/hooks/useLogin";
 import axios from "axios";
 import { signIn } from "next-auth/react";
+import { toast } from "react-hot-toast";
 
 function RegisterModal() {
   const register = useRegisterModal();
@@ -36,6 +37,8 @@ function RegisterModal() {
 
       setIsloading(false);
 
+      toast.success("Account created.");
+
       signIn("credentials", {
         email,
         password,
@@ -49,6 +52,8 @@ function RegisterModal() {
 
       register.onClose();
     } catch (error) {
+      toast.error("Something went wrong");
+
       console.log(error);
     } finally {
       setIsloading(false);
@@ -94,6 +99,7 @@ function RegisterModal() {
       isOpen={register.isOpen}
       onClose={register.onClose}
       submit={onSubmit}
+      disabled={isLoading}
     />
   );
 }

@@ -5,12 +5,14 @@ import "@/styles/globals.css";
 import { Provider } from "jotai";
 import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
+import { Toaster } from "react-hot-toast";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <SessionProvider session={pageProps.session}>
       <Provider>
         <RegisterModal />
+        <Toaster />
         <LoginModal />
         <Layout>
           <Component {...pageProps} />

@@ -3,6 +3,7 @@ import Modal from "../Modal";
 import useLoginModal from "@/hooks/useLogin";
 import useRegisterModal from "@/hooks/useRegister";
 import { signIn } from "next-auth/react";
+import { toast } from "react-hot-toast";
 
 function LoginModal() {
   const login = useLoginModal();
@@ -27,12 +28,15 @@ function LoginModal() {
       await signIn("credentials", {
         email,
         password,
+        // redirect: false,
       });
 
+      toast.success("Signed in successfully");
       login.onClose();
       setEmail("");
       setPassword("");
     } catch (error) {
+      toast.error("Something went wrong");
       console.log(error);
     }
   }, [email, password, login]);
@@ -63,6 +67,7 @@ function LoginModal() {
       onClose={login.onClose}
       submit={onSubmit}
       toggle={onToggle}
+      disabled={isLoading}
     />
   );
 }

@@ -2,8 +2,11 @@ import React from "react";
 import SidebarItem from "./SidebarItem";
 import { Icon } from "@iconify/react";
 import { signOut } from "next-auth/react";
+import useCurrentUser from "@/hooks/useCurrentUser";
 
 function Sidebar() {
+  const { data: session } = useCurrentUser();
+
   const items = [
     {
       name: "Home",
@@ -36,14 +39,16 @@ function Sidebar() {
             href={item.href}
           />
         ))}
-        <SidebarItem
-          name={"Logout"}
-          icon={"material-symbols:logout-rounded"}
-          onClick={() => {
-            signOut();
-          }}
-          rotate={2}
-        />
+        {session && (
+          <SidebarItem
+            name={"Logout"}
+            icon={"material-symbols:logout-rounded"}
+            onClick={() => {
+              signOut();
+            }}
+            rotate={2}
+          />
+        )}
       </div>
     </div>
   );
