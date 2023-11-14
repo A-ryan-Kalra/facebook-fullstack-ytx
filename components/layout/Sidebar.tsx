@@ -3,6 +3,7 @@ import SidebarItem from "./SidebarItem";
 import { Icon } from "@iconify/react";
 import { signOut } from "next-auth/react";
 import useCurrentUser from "@/hooks/useCurrentUser";
+import { useRouter } from "next/router";
 
 function Sidebar() {
   const { data: session } = useCurrentUser();
@@ -24,10 +25,12 @@ function Sidebar() {
       href: "/users",
     },
   ];
+  const router = useRouter();
   return (
-    <div className="col-span-1 border-r-[1px] border-zinc-300 ">
+    <div className="col-span-1   ">
       <div className="gap-3 flex flex-col w-max ml-auto">
         <Icon
+          onClick={() => router.push("/")}
           icon="logos:facebook"
           className="active:scale-105 cursor-pointer shadow-md bg-[#FEFEFF] rounded-full mt-2 p-2 w-[53px] h-[53px] md:w-[64px]  md:h-[64px]"
         />

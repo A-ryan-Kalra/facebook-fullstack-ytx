@@ -1,6 +1,10 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
+import useCurrentUser from "@/hooks/useCurrentUser";
+import useLoginModal from "@/hooks/useLogin";
+import usePost from "@/hooks/usePost";
+import usePosts from "@/hooks/usePosts";
 
 interface SidebarItemProps {
   href?: string;
@@ -11,13 +15,21 @@ interface SidebarItemProps {
 }
 function SidebarItem({ href, name, icon, onClick, rotate }: SidebarItemProps) {
   const router = useRouter();
+  const { data: currentUser } = useCurrentUser();
+  const login = useLoginModal();
+
+  const { data: posts, mutate: postsMutate } = usePosts();
 
   const handleClick = () => {
     if (onClick) {
       return onClick();
     }
-
-    router.push(`/${href}`);
+    if (!currentUser) {
+      login.onOpen();
+    } else if (href) {
+      // postsMutate();
+      router.push(href as string);
+    }
   };
 
   return (

@@ -8,29 +8,35 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import usePosts from "@/hooks/usePosts";
 import { mutate } from "swr";
+import usePost from "@/hooks/usePost";
 
 interface FormProps {
   label: string;
+  isComment?: boolean;
+  postId?: string;
 }
-function Form({ label }: FormProps) {
+function Form({ label, isComment, postId }: FormProps) {
   const { data: session } = useCurrentUser();
   const register = useRegisterModal();
   const login = useLoginModal();
   const [body, setBody] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
   const { mutate: mutatePosts } = usePosts();
+  const { mutate: mutatePost } = usePost(postId as string);
 
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
 
-      const url = "/api/posts";
+      const url = isComment ? `/api/comments?postId=${postId}` : "/api/posts";
 
       await axios.post(url, { body });
 
       toast.success("Posted");
       setBody("");
       mutatePosts();
+      mutatePost();
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
