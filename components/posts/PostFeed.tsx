@@ -5,10 +5,11 @@ import { ClipLoader } from "react-spinners";
 import usePost from "../../hooks/usePost";
 function PostFeed() {
   const { data: posts, mutate, error, isLoading } = usePosts();
+  mutate();
   return (
     <div>
       {!isLoading ? (
-        <div className="flex flex-col gap-3 p-2">
+        <div className="flex flex-col gap-3 mt-2">
           {posts?.map((post: Record<string, any>, index: number) => (
             <PostItem key={index} post={post} />
           ))}

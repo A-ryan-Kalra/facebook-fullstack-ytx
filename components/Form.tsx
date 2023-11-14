@@ -43,7 +43,7 @@ function Form({ label, isComment, postId }: FormProps) {
     } finally {
       setIsLoading(false);
     }
-  }, [body, mutatePosts]);
+  }, [body, mutatePosts, mutatePost, postId]);
 
   return (
     <div className="bg-[#FEFEFF] shadow-lg rounded-xl mt-2 p-2">

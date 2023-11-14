@@ -60,7 +60,7 @@ function PostItem({ post }: PostItemProps) {
   // console.log(post);
   return (
     <div
-      className="bg-[#FEFEFF] flex flex-col rounded-md shadow-md p-2"
+      className="bg-[#FEFEFF] flex flex-col rounded-lg hover:bg-opacity-20 cursor-pointer shadow-md p-2"
       onClick={goToPost}
     >
       <div className="flex justify-between items-center">
