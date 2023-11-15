@@ -13,6 +13,7 @@ import fetcher from "@/libs/fetcher";
 
 interface PostItemProps {
   post: Record<string, any>;
+  userId?: string;
 }
 function PostItem({ post }: PostItemProps) {
   //   console.log(post);
@@ -21,7 +22,6 @@ function PostItem({ post }: PostItemProps) {
   const { data: currentUser, isLoading, mutate } = useCurrentUser();
   const { hasLiked, toggleLike } = useLike({ postId: post?.id });
   const { delPost } = useDeletePost(post?.id);
-
   const router = useRouter();
 
   const goToUser = useCallback(
