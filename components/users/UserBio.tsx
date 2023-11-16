@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import usePost from "@/hooks/usePost";
 import useUser from "@/hooks/useUser";
 import useFollow from "@/hooks/useFollow";
+import useEditModal from "@/hooks/useEdit";
 
 interface UserBioProps {
   userId: string;
@@ -17,6 +18,7 @@ function UserBio({ userId }: UserBioProps) {
   // console.log(fetchedUser);
   const [type, setType] = useState("");
   const [type1, setType1] = useState(false);
+  const editModal = useEditModal();
 
   const typeToFollow = useMemo(() => {
     isFollowing ? setType("following") : setType("follow");
@@ -27,7 +29,10 @@ function UserBio({ userId }: UserBioProps) {
     <div className="pb-4 shadow-md rounded-b-xl mb-2 bg-white">
       <div className="flex justify-end p-2">
         {currentUser?.id === userId ? (
-          <button className="bg-[#fcfcfe] shadow-md rounded-lg hover:bg-opacity-5 active:scale-105 font-semibold  border-2 p-2">
+          <button
+            className="bg-[#fcfcfe] shadow-md rounded-lg hover:bg-opacity-5 active:scale-105 font-semibold  border-2 p-2"
+            onClick={editModal.onOpen}
+          >
             Edit
           </button>
         ) : (

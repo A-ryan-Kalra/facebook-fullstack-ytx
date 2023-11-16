@@ -14,7 +14,7 @@ function PostFeed({ userId }: PostFeedProps) {
   mutate();
   FetchedPostsMutate();
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 mt-2">
       {posts?.map((post: Record<string, any>, index: number) => (
         <PostItem post={post} key={index} userId={userId as string} />
       ))}

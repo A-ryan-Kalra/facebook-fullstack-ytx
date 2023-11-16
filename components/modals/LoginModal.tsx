@@ -68,6 +68,8 @@ function LoginModal() {
       submit={onSubmit}
       toggle={onToggle}
       disabled={isLoading}
+      label={login.isOpen ? "Login" : ""}
+      type={login.isOpen ? "Sign in" : ""}
     />
   );
 }

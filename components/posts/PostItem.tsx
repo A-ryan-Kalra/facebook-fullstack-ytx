@@ -73,7 +73,7 @@ function PostItem({ post }: PostItemProps) {
               alt="display-profile"
               className="rounded-full"
               fill
-              src={"/images/download.png"}
+              src={post?.user?.image || "/images/download.png"}
             />
           </div>
           <div className="flex-col flex text-[15px]">

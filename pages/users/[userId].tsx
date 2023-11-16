@@ -1,3 +1,4 @@
+import Form from "@/components/Form";
 import PostFeed from "@/components/users/PostFeed";
 import UserBio from "@/components/users/UserBio";
 import UserHero from "@/components/users/UserHero";
@@ -23,6 +24,7 @@ function UserProfile() {
     <div>
       <UserHero userId={userId as string} />
       <UserBio userId={userId as string} />
+      <Form label="Post something new!" />
       <PostFeed userId={userId as string} />
     </div>
   );

@@ -100,6 +100,8 @@ function RegisterModal() {
       onClose={register.onClose}
       submit={onSubmit}
       disabled={isLoading}
+      label={register.isOpen ? "Register" : ""}
+      type={register.isOpen ? "Register" : ""}
     />
   );
 }
