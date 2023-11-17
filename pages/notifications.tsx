@@ -5,9 +5,7 @@ import { getSession } from "next-auth/react";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import React from "react";
 
-function notifications({ session }: Params) {
-  console.log(session);
-
+function notifications() {
   return (
     <div>
       <NotificationsFeed />
@@ -30,8 +28,6 @@ export async function getServerSideProps(context: NextPageContext) {
   }
 
   return {
-    props: {
-      session,
-    },
+    props: {},
   };
 }

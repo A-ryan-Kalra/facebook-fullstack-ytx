@@ -8,7 +8,7 @@ interface UserHeroProps {
 
 function UserHero({ userId }: UserHeroProps) {
   const { data, error, isLoading, mutate } = useUser(userId);
-  console.log(data);
+  // console.log(data);
   return (
     <div>
       <div className="bg-neutral-700 relative h-[40vh]">
