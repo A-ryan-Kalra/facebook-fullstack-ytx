@@ -37,7 +37,7 @@ function ImageUpload({ label, onChange, disabled, value }: DropZoneProps) {
     maxFiles: 1,
     onDrop: handleDrop,
     disabled: disabled,
-    maxSize: 7000000, //7mb
+    // maxSize: 7000000, //7mb
     // accept: {
     //   "image/jpeg": [],
     //   "image/png": [],

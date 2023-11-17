@@ -34,7 +34,7 @@ function FollowBar() {
               <div className="relative w-10 h-10 rounded-full">
                 <Image
                   alt="dp"
-                  className="rounded-full"
+                  className="rounded-full object-cover"
                   src={user?.profileImage || "/images/download.png"}
                   fill
                 />
