@@ -58,19 +58,22 @@ function UserBio({ userId }: UserBioProps) {
         )}
       </div>
       <div className="mt-8 flex flex-col gap-3 px-2">
-        <div className="flex-col flex justify-center">
+        <div className="flex-col flex justify-center cursor-default">
           <h1 className="text-[20px] ">{fetchedUser?.name}</h1>
-          <h1 className="text-[16px] text-zinc-500 ">
+          <h1 className="text-[16px] text-zinc-600 ">
             @{fetchedUser?.username}
           </h1>
         </div>
-        <div className="flex  py-2 gap-3 items-center ">
+        <h1 className="text-zinc-500 cursor-default">
+          {fetchedUser?.bio || "Bio"}
+        </h1>
+        <div className="flex  py-2 gap-3 items-center cursor-default">
           <Icon icon="solar:calendar-line-duotone" width={26} />
           <h1 className="text-zinc-600 text-[15px]">
             Joined {format(new Date(fetchedUser.createdAt), "MMMM yyyy")}
           </h1>
         </div>
-        <div className="flex gap-5">
+        <div className="flex gap-5 cursor-default">
           <h1>
             <span className="mr-1">{fetchedUser?.followingIds?.length}</span>
             Following
