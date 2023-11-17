@@ -15,7 +15,7 @@ function NotificationsFeed() {
   }, [mutateCurrentUser]);
 
   mutate();
-  console.log(fetchedNotifications);
+  // console.log(fetchedNotifications);
   if (fetchedNotifications?.length === 0) {
     return (
       <div className="text-neutral-600 text-center p-6 text-xl">
