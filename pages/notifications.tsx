@@ -20,7 +20,6 @@ export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
   console.log("yoyoyo");
   console.log(session);
-
   setTimeout(() => {
     if (!session) {
       return {
@@ -31,7 +30,6 @@ export async function getServerSideProps(context: NextPageContext) {
       };
     }
   }, 400);
-
   return {
     props: {
       session,
