@@ -63,7 +63,10 @@ function Modal({
           className="px-5 w-full flex  flex-col gap-5"
           onClick={handleSubmit}
         >
-          <button className="text-xl font-semibold hover:bg-white/80 mt-10 bg-white rounded-full px-5 py-3  ">
+          <button
+            className="disabled:cursor-not-allowed text-xl font-semibold hover:bg-white/80 mt-10 bg-white rounded-full px-5 py-3  disabled:bg-neutral-500"
+            disabled={disabled}
+          >
             {type}
           </button>
         </div>
