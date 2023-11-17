@@ -3,11 +3,13 @@ import PostFeed from "@/components/users/PostFeed";
 import UserBio from "@/components/users/UserBio";
 import UserHero from "@/components/users/UserHero";
 import useUser from "@/hooks/useUser";
-import { NextPageContext } from "next";
+import { NextApiRequest, NextApiResponse, NextPageContext } from "next";
+import { getServerSession } from "next-auth";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
 import { ClipLoader } from "react-spinners";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 function UserProfile() {
   const router = useRouter();
@@ -34,8 +36,11 @@ function UserProfile() {
 
 export default UserProfile;
 
-export async function getServerSideProps(context: NextPageContext) {
-  const session = await getSession(context);
+export async function getServerSideProps(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const session = await getServerSession(req, res, authOptions);
 
   if (!session) {
     return {
@@ -45,6 +50,7 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     };
   }
+
   return {
     props: {},
   };

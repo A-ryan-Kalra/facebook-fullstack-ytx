@@ -1,12 +1,26 @@
 import NotificationsFeed from "@/components/NotificationsFeed";
-import { NextPageContext } from "next";
+import { NextApiRequest, NextApiResponse, NextPageContext } from "next";
 import { getServerSession } from "next-auth";
 import { getSession } from "next-auth/react";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import React from "react";
+import { authOptions } from "./api/auth/[...nextauth]";
 
-export async function getServerSideProps(context: NextPageContext) {
-  const session = await getSession(context);
+function notifications() {
+  return (
+    <div>
+      <NotificationsFeed />
+    </div>
+  );
+}
+
+export default notifications;
+
+export async function getServerSideProps(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const session = await getServerSession(req, res, authOptions);
 
   if (!session) {
     return {
@@ -21,13 +35,3 @@ export async function getServerSideProps(context: NextPageContext) {
     props: {},
   };
 }
-
-function notifications() {
-  return (
-    <div>
-      <NotificationsFeed />
-    </div>
-  );
-}
-
-export default notifications;
