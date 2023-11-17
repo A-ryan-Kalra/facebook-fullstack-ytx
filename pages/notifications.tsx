@@ -16,11 +16,8 @@ function notifications() {
 
 export default notifications;
 
-export async function getServerSideProps(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const session = await getServerSession(req, res, authOptions);
+export async function getServerSideProps(context: NextPageContext) {
+  const session = await getSession(context);
 
   if (!session) {
     return {
@@ -32,6 +29,8 @@ export async function getServerSideProps(
   }
 
   return {
-    props: {},
+    props: {
+      session,
+    },
   };
 }
