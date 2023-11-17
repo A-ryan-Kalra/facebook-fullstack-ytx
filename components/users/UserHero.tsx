@@ -11,22 +11,22 @@ function UserHero({ userId }: UserHeroProps) {
   console.log(data);
   return (
     <div>
-      <div className="bg-neutral-700 relative h-44">
+      <div className="bg-neutral-700 relative h-[40vh]">
         {data?.coverImage && (
           <Image
             alt="coverImage"
             src={data?.coverImage}
             fill
-            className="object-cover"
+            className="object-cover items-end"
           />
         )}
         <div className="absolute left-4 border-2 border-[#1777F2] -bottom-16 rounded-full cursor-pointer bg-black">
           <div className=" relative w-32  h-32">
-            {data?.image && (
+            {data?.profileImage && (
               <Image
                 alt="display-profile"
-                className="rounded-full"
-                src={data?.image}
+                className="rounded-full object-cover"
+                src={data?.profileImage}
                 fill
               />
             )}

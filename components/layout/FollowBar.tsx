@@ -7,7 +7,7 @@ import React, { useCallback } from "react";
 
 function FollowBar() {
   const { data: users = [], mutate } = useUsers();
-  console.log(users);
+
   const router = useRouter();
 
   const goToUser = useCallback(
@@ -16,6 +16,7 @@ function FollowBar() {
     },
     [router]
   );
+  mutate();
 
   return (
     <div className="bg-black/10 p-2 mt-2 hidden md:block rounded-xl ml-10 h-max shadow-xl max-h-[280px] overflow-y-auto">
@@ -34,7 +35,7 @@ function FollowBar() {
                 <Image
                   alt="dp"
                   className="rounded-full"
-                  src={user?.image || "/images/download.png"}
+                  src={user?.profileImage || "/images/download.png"}
                   fill
                 />
               </div>

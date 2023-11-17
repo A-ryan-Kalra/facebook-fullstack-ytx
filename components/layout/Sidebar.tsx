@@ -18,11 +18,12 @@ function Sidebar() {
       name: "Notifications",
       icon: "ion:notifications-sharp",
       href: "/notifications",
+      alert: session?.hasNotification,
     },
     {
       name: "Profile",
       icon: "iconamoon:profile-circle-fill",
-      href: "/users",
+      href: `/users/${session?.id}`,
     },
   ];
   const router = useRouter();
@@ -40,6 +41,7 @@ function Sidebar() {
             name={item.name}
             icon={item.icon}
             href={item.href}
+            alert={item.alert}
           />
         ))}
         {session && (

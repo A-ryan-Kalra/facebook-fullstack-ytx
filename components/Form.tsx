@@ -54,7 +54,7 @@ function Form({ label, isComment, postId }: FormProps) {
               <Image
                 className="rounded-full cursor-pointer object-cover"
                 alt="prifile-pic"
-                src={session?.image || "/images/download.png"}
+                src={session?.profileImage || "/images/download.png"}
                 fill
               />
             </div>

@@ -20,6 +20,7 @@ function PostItem({ post }: PostItemProps) {
   const login = useLoginModal();
   //   const { data } = usePost(post.id);
   const { data: currentUser, isLoading, mutate } = useCurrentUser();
+  // console.log(currentUser)
   const { hasLiked, toggleLike } = useLike({ postId: post?.id });
   const { delPost } = useDeletePost(post?.id);
   const router = useRouter();
@@ -73,7 +74,7 @@ function PostItem({ post }: PostItemProps) {
               alt="display-profile"
               className="rounded-full"
               fill
-              src={post?.user?.image || "/images/download.png"}
+              src={post?.user?.profileImage || "/images/download.png"}
             />
           </div>
           <div className="flex-col flex text-[15px]">

@@ -7,7 +7,7 @@ import axios from "axios";
 import usePosts from "./usePosts";
 
 const useLike = ({ postId, userId }: { postId: string; userId?: string }) => {
-  const { data: currentUser } = useCurrentUser();
+  const { data: currentUser, mutate: mutateCurrentUser } = useCurrentUser();
   const { data: fetchedPost, mutate: mutateFetchedPost } = usePost(postId);
   const { mutate: mutateFetchedPosts } = usePosts(userId);
 
@@ -32,6 +32,7 @@ const useLike = ({ postId, userId }: { postId: string; userId?: string }) => {
       }
       await request();
       mutateFetchedPost();
+      mutateCurrentUser();
       mutateFetchedPosts();
     } catch (error) {
       if (currentUser) toast.error("Something went wrong");
@@ -40,6 +41,7 @@ const useLike = ({ postId, userId }: { postId: string; userId?: string }) => {
   }, [
     currentUser,
     login,
+    mutateCurrentUser,
     mutateFetchedPost,
     mutateFetchedPosts,
     postId,

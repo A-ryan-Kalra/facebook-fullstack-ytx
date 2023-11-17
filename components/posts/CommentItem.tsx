@@ -39,6 +39,7 @@ function CommentItem({ data }: CommentItemProps) {
     },
     [delComments]
   );
+  console.log(data.user.profileImage);
   return (
     <div className="bg-[#FEFEFF] shadow-md flex flex-col gap-2 rounded-md p-2">
       <div className="flex justify-between p-1">
@@ -51,7 +52,7 @@ function CommentItem({ data }: CommentItemProps) {
               fill
               alt="dp"
               className="rounded-full"
-              src={"/images/download.png"}
+              src={data?.user?.profileImage || "/images/download.png"}
             />
           </div>
           <div className="flex flex-col">
