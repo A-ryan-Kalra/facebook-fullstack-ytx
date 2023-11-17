@@ -4,7 +4,11 @@ import fetcher from "@/libs/fetcher";
 const usePost = (postId: string) => {
   const { data, isLoading, error, mutate } = useSWR(
     postId ? `/api/posts/${postId}` : null,
-    fetcher
+    fetcher,
+    {
+      refreshInterval: 1000,
+      revalidateOnMount: true,
+    }
   );
 
   return { data, isLoading, error, mutate };
