@@ -5,16 +5,6 @@ import { getSession } from "next-auth/react";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import React from "react";
 
-function notifications() {
-  return (
-    <div>
-      <NotificationsFeed />
-    </div>
-  );
-}
-
-export default notifications;
-
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
 
@@ -31,3 +21,13 @@ export async function getServerSideProps(context: NextPageContext) {
     props: {},
   };
 }
+
+function notifications() {
+  return (
+    <div>
+      <NotificationsFeed />
+    </div>
+  );
+}
+
+export default notifications;
