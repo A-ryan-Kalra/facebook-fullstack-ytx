@@ -20,14 +20,17 @@ export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
   console.log("yoyoyo");
   console.log(session);
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
+
+  setTimeout(() => {
+    if (!session) {
+      return {
+        redirect: {
+          destination: "/",
+          permanent: false,
+        },
+      };
+    }
+  }, 400);
 
   return {
     props: {
