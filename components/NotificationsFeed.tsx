@@ -33,7 +33,7 @@ function NotificationsFeed() {
           >
             <Icon icon="ant-design:notification-filled" width={30} />
             <p className="text-[20px]">
-              {index + 1} {notification?.body}
+              {fetchedNotifications.length - index} {notification?.body}
             </p>
           </div>
         )
