@@ -37,16 +37,14 @@ export default UserProfile;
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
 
-  setTimeout(() => {
-    if (!session) {
-      return {
-        redirect: {
-          destination: "/",
-          permanent: false,
-        },
-      };
-    }
-  }, 200);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
 
   return {
     props: {
