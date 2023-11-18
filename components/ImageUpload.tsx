@@ -2,6 +2,7 @@ import axios from "axios";
 import Image from "next/image";
 import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import toast from "react-hot-toast";
 
 interface DropZoneProps {
   onChange: (base64: string) => void;
@@ -42,6 +43,7 @@ function ImageUpload({ label, onChange, disabled, value }: DropZoneProps) {
       onChange(response?.data?.secure_url);
 
       setUploadStatus("upload successful");
+      toast.success("Image Uploaded");
     } catch (error) {
       console.log("imageUpload " + error);
       setUploadStatus("Upload failed..");
@@ -61,31 +63,30 @@ function ImageUpload({ label, onChange, disabled, value }: DropZoneProps) {
     isDragAccept,
     isDragReject,
   } = useDropzone({ onDrop });
-
   return (
     <div
       className={`w-full p-4 text-white text-center cursor-pointer hover:border-indigo-400 border-2 border-dotted rounded-md border-neutral-600`}
     >
       <div className={`flex items-center justify-center`} {...getRootProps()}>
         <input {...getInputProps()} />
-        {isDragActive ? (
-          <p>Drop file(s) here ...</p>
-        ) : (
+        {selectedImages.length === 0 ? (
           <p>Drag and drop file(s) here, or click to select files</p>
+        ) : (
+          <div className={"flex items-center justify-center"}>
+            {selectedImages.length > 0 &&
+              selectedImages.map((image, index) => (
+                <img
+                  src={`${URL.createObjectURL(image)}`}
+                  width={200}
+                  height={200}
+                  key={index}
+                  alt=""
+                />
+              ))}
+          </div>
         )}
       </div>
-      <div className={"flex items-center justify-center"}>
-        {selectedImages.length > 0 &&
-          selectedImages.map((image, index) => (
-            <img
-              src={`${URL.createObjectURL(image)}`}
-              width={100}
-              height={100}
-              key={index}
-              alt=""
-            />
-          ))}
-      </div>
+
       {selectedImages.length > 0 && (
         <div
           className={

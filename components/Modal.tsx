@@ -48,7 +48,7 @@ function Modal({
 
   return (
     <div className="fixed bg-black/20  inset-0 z-50">
-      <div className="h-screen w-screen relative top-[27%] flex-col flex m-auto translate-y-[-27%]  px-10 py-5 gap-3 rounded-xl shadow-md bg-black max-w-3xl md:w-3/6 md:h-auto">
+      <div className="max-h-[700px] w-screen relative overflow-y-auto top-[27%] flex-col flex m-auto translate-y-[-27%]  px-10 py-5 gap-3 rounded-xl shadow-md bg-black max-w-3xl md:w-3/6 md:h-auto">
         <div className="flex justify-between items-center p-2">
           <h1 className="text-white text-[30px] font-semibold">{label}</h1>
           <Icon
