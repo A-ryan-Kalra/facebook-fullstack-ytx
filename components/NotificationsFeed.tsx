@@ -6,9 +6,11 @@ import { Icon } from "@iconify/react";
 
 function NotificationsFeed() {
   const { data: currentUser, mutate: mutateCurrentUser } = useCurrentUser();
-  const { data: fetchedNotifications = [], mutate } = useNotifications(
-    currentUser?.id
-  );
+  const {
+    data: fetchedNotifications = [],
+    mutate,
+    isLoading: fetchingNotifications,
+  } = useNotifications(currentUser?.id);
 
   useEffect(() => {
     mutateCurrentUser();
@@ -16,7 +18,7 @@ function NotificationsFeed() {
 
   mutate();
   // console.log(fetchedNotifications);
-  if (fetchedNotifications?.length === 0) {
+  if (fetchedNotifications?.length === 0 || fetchingNotifications) {
     return (
       <div className="text-neutral-600 text-center p-6 text-xl">
         No notifications
