@@ -28,7 +28,7 @@ export async function getServerSideProps(context: NextPageContext) {
         },
       };
     }
-  }, 200);
+  }, 100);
 
   return {
     props: {
