@@ -14,22 +14,36 @@ function ImageUpload({ label, onChange, disabled, value }: DropZoneProps) {
   const [base64, setBase64] = useState(value);
   const [uploadStatus, setUploadStatus] = useState("");
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
-  console.log(selectedImages);
+
+  // console.log(selectedImages);
 
   const onUpload = async () => {
     setUploadStatus("Uploading....");
+
     const formData = new FormData();
+
     selectedImages.forEach((image) => {
       formData.append("file", image);
     });
+
+    formData.append("upload_preset", "myUploads");
+
     try {
-      const response = await axios.post("/api/upload", formData);
-      console.log(response?.data?.url);
+      // const response = await axios.post("/api/upload", formData);
+
+      const response = await axios.post(
+        `https://api.cloudinary.com/v1_1/dwv9j6k7g/image/upload`,
+        formData
+      );
+
+      // console.log(response);
+      // console.log(response?.data?.url);
       // setBase64(response?.data?.url)
-      onChange(response?.data?.url);
+      onChange(response?.data?.secure_url);
+
       setUploadStatus("upload successful");
     } catch (error) {
-      console.log("imageUpload" + error);
+      console.log("imageUpload " + error);
       setUploadStatus("Upload failed..");
     }
   };

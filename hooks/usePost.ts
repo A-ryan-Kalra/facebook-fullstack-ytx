@@ -6,7 +6,7 @@ const usePost = (postId: string) => {
     postId ? `/api/posts/${postId}` : null,
     fetcher,
     {
-      refreshInterval: 1000,
+      // refreshInterval: 1000,
       revalidateOnMount: true,
     }
   );

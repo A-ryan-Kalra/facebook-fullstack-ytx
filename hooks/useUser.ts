@@ -6,7 +6,7 @@ const useUser = (userId: string) => {
     userId ? `/api/users/${userId}` : null,
     fetcher,
     {
-      refreshInterval: 1000,
+      // refreshInterval: 1000,
       revalidateOnMount: true,
     }
   );
