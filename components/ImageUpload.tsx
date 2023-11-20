@@ -83,16 +83,18 @@ function ImageUpload({ label, onChange, disabled, value }: DropZoneProps) {
         {selectedImages.length === 0 ? (
           <p>Drag and drop file(s) here, or click to select files</p>
         ) : (
-          <div className={"flex items-center justify-center relative"}>
+          <div className={"flex items-center gap-2 justify-center relative"}>
             {selectedImages.length > 0 &&
               selectedImages.map((image, index) => (
-                <div className="flex items-center justify-center relative">
-                  <img
+                <div
+                  className="flex items-center justify-center relative w-32 h-32"
+                  key={index}
+                >
+                  <Image
                     src={`${URL.createObjectURL(image)}`}
-                    width={200}
-                    height={200}
                     key={index}
-                    alt=""
+                    fill
+                    alt="image"
                   />
                   <div
                     className="absolute p-1 hover:bg-neutral-400 shadow-md bg-black top-0 right-0 rounded-full"
