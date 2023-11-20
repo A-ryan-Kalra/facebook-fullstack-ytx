@@ -76,9 +76,12 @@ function ImageUpload({ label, onChange, disabled, value }: DropZoneProps) {
   } = useDropzone({ onDrop });
   return (
     <div
-      className={`w-full p-4 text-white text-center cursor-pointer hover:border-indigo-400 border-2 border-dotted rounded-md border-neutral-600`}
+      className={`w-full p-1 text-white text-center cursor-pointer hover:border-indigo-400 border-2 border-dotted rounded-md border-neutral-600`}
     >
-      <div className={`flex items-center justify-center`} {...getRootProps()}>
+      <div
+        className={`flex items-center justify-center  p-1`}
+        {...getRootProps()}
+      >
         <input {...getInputProps()} />
         {selectedImages.length === 0 ? (
           <p>Drag and drop file(s) here, or click to select files</p>
