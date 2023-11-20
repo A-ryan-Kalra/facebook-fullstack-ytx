@@ -1,7 +1,9 @@
 import useEditModal from "@/hooks/useEdit";
 import useLoginModal from "@/hooks/useLogin";
 import { Icon } from "@iconify/react";
+import { useAtom } from "jotai";
 import { ReactElement, useCallback } from "react";
+import { uploadAtom } from "./ImageUpload";
 
 interface ModalProps {
   body?: ReactElement;
@@ -26,7 +28,8 @@ function Modal({
 }: ModalProps) {
   const login = useLoginModal();
   const editModal = useEditModal();
-
+  const loading = useAtom(uploadAtom);
+  // console.log(loading[0]);
   const handleClose = useCallback(() => {
     if (disabled) {
       return;
@@ -65,7 +68,7 @@ function Modal({
         >
           <button
             className="disabled:cursor-not-allowed text-xl font-semibold hover:bg-white/80 mt-10 bg-white rounded-full px-5 py-3  disabled:bg-neutral-500"
-            disabled={disabled}
+            disabled={disabled || (loading[0] as unknown as boolean)}
           >
             {type}
           </button>

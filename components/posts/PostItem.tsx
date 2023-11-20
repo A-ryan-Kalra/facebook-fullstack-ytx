@@ -1,7 +1,7 @@
 import { formatDistanceToNow, formatDistanceToNowStrict } from "date-fns";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import LoginModal from "../modals/LoginModal";
@@ -16,14 +16,19 @@ interface PostItemProps {
   userId?: string;
 }
 function PostItem({ post }: PostItemProps) {
-  //   console.log(post);
   const login = useLoginModal();
-  //   const { data } = usePost(post.id);
+
   const { data: currentUser, isLoading, mutate } = useCurrentUser();
-  // console.log(currentUser)
+
   const { hasLiked, toggleLike } = useLike({ postId: post?.id });
   const { delPost } = useDeletePost(post?.id);
   const router = useRouter();
+  const [liked, setLiked] = useState(hasLiked);
+  console.log(hasLiked);
+
+  useEffect(() => {
+    setLiked(hasLiked);
+  }, [hasLiked]);
 
   const goToUser = useCallback(
     (ev: any) => {
@@ -41,7 +46,12 @@ function PostItem({ post }: PostItemProps) {
   const onLike = useCallback(
     (ev: any) => {
       ev.stopPropagation();
-
+      // if (liked) {
+      //   setLiked(false);
+      // } else {
+      //   setLiked(true);
+      // }
+      setLiked(!liked);
       if (!currentUser) {
         return login.onOpen();
       }
@@ -101,7 +111,7 @@ function PostItem({ post }: PostItemProps) {
       <p className="p-2">{post?.body}</p>
       <div className="flex gap-5 items-center">
         <div className="border-2 p-1 rounded-full cursor-pointer hover:bg-neutral-500/20 active:scale-110">
-          {hasLiked ? (
+          {liked ? (
             <Icon icon="solar:like-bold-duotone" width={20} onClick={onLike} />
           ) : (
             <Icon icon="solar:like-broken" width={20} onClick={onLike} />

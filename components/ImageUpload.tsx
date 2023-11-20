@@ -1,8 +1,10 @@
 import axios from "axios";
+import { atom, useAtom } from "jotai";
 import Image from "next/image";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import toast from "react-hot-toast";
+import { Icon } from "@iconify/react";
 
 interface DropZoneProps {
   onChange: (base64: string) => void;
@@ -10,13 +12,21 @@ interface DropZoneProps {
   value?: string;
   disabled?: boolean;
 }
+export const uploadAtom = atom(false);
 
 function ImageUpload({ label, onChange, disabled, value }: DropZoneProps) {
   const [base64, setBase64] = useState(value);
   const [uploadStatus, setUploadStatus] = useState("");
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
+  const [upload, setUpload] = useAtom(uploadAtom);
 
-  // console.log(selectedImages);
+  useEffect(() => {
+    if (selectedImages.length > 0) {
+      setUpload(true);
+    } else {
+      setUpload(false);
+    }
+  }, [selectedImages]);
 
   const onUpload = async () => {
     setUploadStatus("Uploading....");
@@ -41,6 +51,7 @@ function ImageUpload({ label, onChange, disabled, value }: DropZoneProps) {
       // console.log(response?.data?.url);
       // setBase64(response?.data?.url)
       onChange(response?.data?.secure_url);
+      setUpload(false);
 
       setUploadStatus("upload successful");
       toast.success("Image Uploaded");
@@ -72,16 +83,29 @@ function ImageUpload({ label, onChange, disabled, value }: DropZoneProps) {
         {selectedImages.length === 0 ? (
           <p>Drag and drop file(s) here, or click to select files</p>
         ) : (
-          <div className={"flex items-center justify-center"}>
+          <div className={"flex items-center justify-center relative"}>
             {selectedImages.length > 0 &&
               selectedImages.map((image, index) => (
-                <img
-                  src={`${URL.createObjectURL(image)}`}
-                  width={200}
-                  height={200}
-                  key={index}
-                  alt=""
-                />
+                <div className="flex items-center justify-center relative">
+                  <img
+                    src={`${URL.createObjectURL(image)}`}
+                    width={200}
+                    height={200}
+                    key={index}
+                    alt=""
+                  />
+                  <div
+                    className="absolute p-1 hover:bg-neutral-400 shadow-md bg-black top-0 right-0 rounded-full"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedImages((prev) =>
+                        prev.filter((pre) => pre !== selectedImages[index])
+                      );
+                    }}
+                  >
+                    <Icon icon="iconamoon:close" width={20} />
+                  </div>
+                </div>
               ))}
           </div>
         )}
@@ -90,11 +114,11 @@ function ImageUpload({ label, onChange, disabled, value }: DropZoneProps) {
       {selectedImages.length > 0 && (
         <div
           className={
-            "w-fit m-auto cursor-pointer hover:bg-fuchsia-400 p-1 border-[1px] border-white "
+            "w-fit m-auto cursor-pointer rounded-full p-2 bg-fuchsia-400 shadow-md hover:bg-opacity-60 mt-1 font-semibold "
           }
         >
-          <button onClick={onUpload}>Upload to Cloudinary</button>
-          <p>{uploadStatus}</p>
+          {!uploadStatus && <button onClick={onUpload}>Upload</button>}
+          <p className="">{uploadStatus}</p>
         </div>
       )}
     </div>

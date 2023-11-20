@@ -5,7 +5,8 @@ import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Modal from "../Modal";
-import ImageUpload from "../ImageUpload";
+import ImageUpload, { uploadAtom } from "../ImageUpload";
+import { useAtom } from "jotai";
 
 const EditModal = () => {
   const { data: currentUser } = useCurrentUser();
@@ -33,6 +34,7 @@ const EditModal = () => {
     currentUser?.username,
     currentUser?.bio,
   ]);
+  const [upload, setUpload] = useAtom(uploadAtom);
 
   const onSubmit = useCallback(async () => {
     try {
@@ -48,13 +50,13 @@ const EditModal = () => {
 
       mutateFetchedUser();
       toast.success("Bio updated");
-
       editModal.onClose();
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
     } finally {
       setIsLoading(false);
+      setUpload(true);
     }
   }, [
     name,
@@ -108,7 +110,10 @@ const EditModal = () => {
   return (
     <Modal
       isOpen={editModal.isOpen}
-      onClose={editModal.onClose}
+      onClose={() => {
+        editModal.onClose();
+        setUpload(false);
+      }}
       submit={onSubmit}
       body={bodyContent}
       disabled={isLoading}
