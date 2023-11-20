@@ -96,6 +96,7 @@ function ImageUpload({ label, onChange, disabled, value }: DropZoneProps) {
                   <Image
                     src={`${URL.createObjectURL(image)}`}
                     key={index}
+                    className="object-contain"
                     fill
                     alt="image"
                   />
