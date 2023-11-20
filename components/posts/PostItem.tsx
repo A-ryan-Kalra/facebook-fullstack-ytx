@@ -24,11 +24,11 @@ function PostItem({ post }: PostItemProps) {
   const { delPost } = useDeletePost(post?.id);
   const router = useRouter();
   const [liked, setLiked] = useState(hasLiked);
-  console.log(hasLiked);
+  // console.log(hasLiked);
 
   useEffect(() => {
     setLiked(hasLiked);
-  }, [hasLiked]);
+  }, [hasLiked, setLiked]);
 
   const goToUser = useCallback(
     (ev: any) => {
@@ -57,7 +57,7 @@ function PostItem({ post }: PostItemProps) {
       }
       toggleLike();
     },
-    [currentUser, login, toggleLike]
+    [currentUser, login, toggleLike, liked, setLiked]
   );
 
   const onDeletePost = useCallback(

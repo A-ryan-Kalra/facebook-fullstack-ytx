@@ -26,7 +26,7 @@ function ImageUpload({ label, onChange, disabled, value }: DropZoneProps) {
     } else {
       setUpload(false);
     }
-  }, [selectedImages]);
+  }, [selectedImages, setUpload]);
 
   const onUpload = async () => {
     setUploadStatus("Uploading....");
