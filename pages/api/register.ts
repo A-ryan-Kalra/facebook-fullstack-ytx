@@ -11,6 +11,21 @@ export default async function handler(
   }
   try {
     const { name, username, password, email } = req.body;
+
+    if (!email || !username || !password || !name) {
+      return res.status(401).json({ error: "Incomplete details" });
+    }
+
+    const existingUser = await prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
+    if (existingUser) {
+      return res.status(422).json({
+        error: "Email is already taken please try with another email.",
+      });
+    }
     const hashPassword = await hash(password, 12);
 
     const user = await prisma.user.create({

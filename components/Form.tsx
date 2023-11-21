@@ -9,21 +9,28 @@ import axios from "axios";
 import usePosts from "@/hooks/usePosts";
 import { mutate } from "swr";
 import usePost from "@/hooks/usePost";
+import ImageUpload from "./ImageUpload";
+import ImagePostUpload, { uploadAtom1, uploadAtom2 } from "./ImagePostUpload";
+import { atom, useAtom } from "jotai";
 
 interface FormProps {
   label: string;
   isComment?: boolean;
   postId?: string;
 }
+export const postUpload = atom(false);
 function Form({ label, isComment, postId }: FormProps) {
   const { data: session } = useCurrentUser();
   const register = useRegisterModal();
   const login = useLoginModal();
   const [body, setBody] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  const [postImage, setPostImage] = useState("");
   const { mutate: mutatePosts } = usePosts();
   const { mutate: mutatePost } = usePost(postId as string);
+  const [upload, setUpload] = useAtom(uploadAtom1);
+  const [disabled1, setDisabled1] = useAtom(postUpload);
+  const [imageUploaded, setImageUploaded] = useAtom(uploadAtom2);
 
   const onSubmit = useCallback(async () => {
     try {
@@ -31,10 +38,13 @@ function Form({ label, isComment, postId }: FormProps) {
 
       const url = isComment ? `/api/comments?postId=${postId}` : "/api/posts";
 
-      await axios.post(url, { body });
+      await axios.post(url, { body, postImage });
 
       toast.success("Posted");
       setBody("");
+      setUpload(true);
+      setImageUploaded(false);
+
       mutatePosts();
       mutatePost();
     } catch (error) {
@@ -42,8 +52,9 @@ function Form({ label, isComment, postId }: FormProps) {
       toast.error("Something went wrong");
     } finally {
       setIsLoading(false);
+      setDisabled1(true);
     }
-  }, [body, mutatePosts, mutatePost, postId, isComment]);
+  }, [body, mutatePosts, mutatePost, postId, isComment, postImage]);
 
   return (
     <div className="bg-[#FEFEFF] shadow-lg rounded-xl mt-2 p-2">
@@ -66,11 +77,23 @@ function Form({ label, isComment, postId }: FormProps) {
               onChange={(e) => setBody(e.target.value)}
             />
           </div>
-          <div className="flex justify-end items-end ">
+          <div
+            className={`flex ${
+              isComment ? "justify-end items-end" : "justify-between items-end"
+            }   `}
+          >
+            {!isComment && (
+              <ImagePostUpload
+                disabled={disabled1}
+                onChange={(image) => setPostImage(image)}
+              />
+            )}
             <button
               className="bg-[#1777F2] focus:outline-none active:scale-105 text-white font-semibold px-3 py-2 shadow-md hover:bg-opacity-80 rounded-full disabled:cursor-not-allowed disabled:bg-zinc-400 disabled:active:scale-100"
               onClick={onSubmit}
-              disabled={isLoading || !body.trim()}
+              disabled={
+                imageUploaded ? false : isLoading || upload || !body.trim()
+              }
             >
               Post
             </button>

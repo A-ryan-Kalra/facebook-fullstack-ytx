@@ -24,7 +24,7 @@ function PostItem({ post }: PostItemProps) {
   const { delPost } = useDeletePost(post?.id);
   const router = useRouter();
   const [liked, setLiked] = useState(hasLiked);
-  // console.log(hasLiked);
+  // console.log(!currentUser);
 
   useEffect(() => {
     setLiked(hasLiked);
@@ -108,10 +108,20 @@ function PostItem({ post }: PostItemProps) {
           </div>
         )}
       </div>
-      <p className="p-2">{post?.body}</p>
+      <p className="p-2 ">{post?.body}</p>
+      {post?.image && (
+        <div className="relative w-full  mb-2 h-[300px] px-2 py-4">
+          <Image
+            fill
+            alt="body-image"
+            src={post?.image}
+            className="object-cover  rounded-xl p-1"
+          />
+        </div>
+      )}
       <div className="flex gap-5 items-center">
         <div className="border-2 p-1 rounded-full cursor-pointer hover:bg-neutral-500/20 active:scale-110">
-          {liked ? (
+          {currentUser && liked ? (
             <Icon icon="solar:like-bold-duotone" width={20} onClick={onLike} />
           ) : (
             <Icon icon="solar:like-broken" width={20} onClick={onLike} />

@@ -5,6 +5,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import toast from "react-hot-toast";
 import { Icon } from "@iconify/react";
+import { postUpload } from "./Form";
 
 interface DropZoneProps {
   onChange: (base64: string) => void;
@@ -12,13 +13,16 @@ interface DropZoneProps {
   value?: string;
   disabled?: boolean;
 }
-export const uploadAtom = atom(false);
+export const uploadAtom1 = atom(false);
+export const uploadAtom2 = atom(false);
 
-function ImageUpload({ label, onChange, disabled, value }: DropZoneProps) {
+function ImagePostUpload({ label, onChange, disabled, value }: DropZoneProps) {
   const [base64, setBase64] = useState(value);
   const [uploadStatus, setUploadStatus] = useState("");
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
-  const [upload, setUpload] = useAtom(uploadAtom);
+  const [upload, setUpload] = useAtom(uploadAtom1);
+  const [disabled1, setDisabled1] = useAtom(postUpload);
+  const [imageUploaded, setImageUploaded] = useAtom(uploadAtom2);
 
   useEffect(() => {
     if (selectedImages.length > 0) {
@@ -27,6 +31,15 @@ function ImageUpload({ label, onChange, disabled, value }: DropZoneProps) {
       setUpload(false);
     }
   }, [selectedImages, setUpload]);
+
+  useEffect(() => {
+    if (disabled && setSelectedImages.length > 0) {
+      setSelectedImages([]);
+      setUploadStatus("");
+
+      setDisabled1(false);
+    }
+  }, [disabled, setDisabled1, setSelectedImages]);
 
   const onUpload = async () => {
     setUploadStatus("Uploading....");
@@ -47,13 +60,12 @@ function ImageUpload({ label, onChange, disabled, value }: DropZoneProps) {
         formData
       );
 
-      // console.log(response);
-      // console.log(response?.data?.url);
-      // setBase64(response?.data?.url)
       onChange(response?.data?.secure_url);
       setUpload(false);
+      setImageUploaded(true);
 
       setUploadStatus("upload successful");
+
       toast.success("Image Uploaded");
     } catch (error) {
       console.log("imageUpload " + error);
@@ -79,21 +91,25 @@ function ImageUpload({ label, onChange, disabled, value }: DropZoneProps) {
   } = useDropzone({ onDrop, maxFiles: 1, noDrag: true });
   return (
     <div
-      className={`w-full p-1 text-white text-center cursor-pointer hover:border-indigo-400 border-2 border-dotted rounded-md border-neutral-600`}
+      className={`  hover:bg-indigo-400/20 text-white text-center cursor-pointer  rounded-full shadow-md `}
     >
       <div
-        className={`flex items-center justify-center  p-1`}
+        className={`flex items-center justify-center  p-2`}
         {...getRootProps()}
       >
         <input {...getInputProps()} />
         {selectedImages.length === 0 ? (
-          <p>Click to select files</p>
+          <Icon
+            icon="tabler:photo-filled"
+            width={25}
+            className=" text-blue-500"
+          />
         ) : (
           <div className={"flex items-center gap-2 justify-center relative"}>
             {selectedImages.length > 0 &&
               selectedImages.map((image, index) => (
                 <div
-                  className="flex items-center justify-center relative w-32 h-32"
+                  className="flex items-center justify-center relative w-12 h-12"
                   key={index}
                 >
                   <Image
@@ -112,7 +128,7 @@ function ImageUpload({ label, onChange, disabled, value }: DropZoneProps) {
                       );
                     }}
                   >
-                    <Icon icon="iconamoon:close" width={20} />
+                    <Icon icon="iconamoon:close" width={15} />
                   </div>
                 </div>
               ))}
@@ -127,11 +143,11 @@ function ImageUpload({ label, onChange, disabled, value }: DropZoneProps) {
           }
         >
           {!uploadStatus && <button onClick={onUpload}>Upload</button>}
-          <p className="">{uploadStatus}</p>
+          <p className="text-[13px]">{uploadStatus}</p>
         </div>
       )}
     </div>
   );
 }
 
-export default ImageUpload;
+export default ImagePostUpload;

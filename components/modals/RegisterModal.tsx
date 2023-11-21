@@ -5,6 +5,11 @@ import useLoginModal from "@/hooks/useLogin";
 import axios from "axios";
 import { signIn } from "next-auth/react";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/router";
+
+type ErrorCheck = {
+  [key: string]: any;
+};
 
 function RegisterModal() {
   const register = useRegisterModal();
@@ -15,6 +20,9 @@ function RegisterModal() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [isLoading, setIsloading] = useState(false);
+  const [flag, setFlag] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [result1, setResult] = useState<ErrorCheck>();
 
   const onToggle = useCallback(() => {
     if (isLoading) {
@@ -23,12 +31,12 @@ function RegisterModal() {
     register.onClose();
     login.onOpen();
   }, [login, register, isLoading]);
-
+  const router = useRouter();
   const onSubmit = useCallback(async () => {
     try {
       setIsloading(true);
 
-      await axios.post("/api/register", {
+      const result = await axios.post("/api/register", {
         name,
         username,
         password,
@@ -44,19 +52,19 @@ function RegisterModal() {
         password,
         // redirect: false,
       });
-
-      setName("");
-      setEmail("");
-      setUsername("");
-      setPassword("");
-
+      router.reload;
       register.onClose();
     } catch (error) {
       toast.error("Something went wrong");
+      setResult(error!);
 
       console.log(error);
     } finally {
       setIsloading(false);
+      setName("");
+      setEmail("");
+      setUsername("");
+      setPassword("");
     }
   }, [username, name, email, password, register]);
 
@@ -90,6 +98,15 @@ function RegisterModal() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
+      {result1 && result1?.response?.status === 401 ? (
+        <p className="text-red-500 text-[15px]">
+          {result1?.response?.data?.error}
+        </p>
+      ) : (
+        <p className="text-red-500 text-[15px]">
+          {result1?.response?.data?.error}
+        </p>
+      )}
     </form>
   );
   return (
