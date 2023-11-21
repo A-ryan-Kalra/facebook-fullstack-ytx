@@ -29,7 +29,7 @@ function PostItem({ post }: PostItemProps) {
   const trunicate = (body: string, n: number): string | JSX.Element => {
     return body?.length > n ? (
       <>
-        {body.substring(0, n - 1)}..
+        {body.substring(0, n - 1)}...
         <span className="hover:underline"> see more</span>
       </>
     ) : (
