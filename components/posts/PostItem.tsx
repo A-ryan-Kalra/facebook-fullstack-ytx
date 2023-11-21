@@ -1,7 +1,7 @@
 import { formatDistanceToNow, formatDistanceToNowStrict } from "date-fns";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Icon } from "@iconify/react";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import LoginModal from "../modals/LoginModal";
@@ -26,6 +26,17 @@ function PostItem({ post }: PostItemProps) {
   const [liked, setLiked] = useState(hasLiked);
   // console.log(!currentUser);
 
+  const trunicate = (body: string, n: number): string | JSX.Element => {
+    return body?.length > n ? (
+      <>
+        {body.substring(0, n - 1)}...
+        <span className="hover:underline"> see more</span>
+      </>
+    ) : (
+      body
+    );
+  };
+
   useEffect(() => {
     setLiked(hasLiked);
   }, [hasLiked, setLiked]);
@@ -38,6 +49,7 @@ function PostItem({ post }: PostItemProps) {
     },
     [router, post?.user?.id]
   );
+  const [showInput, setShowInput] = useState(false);
 
   const goToPost = useCallback(() => {
     router.push(`/posts/${post?.id}`);
@@ -71,7 +83,7 @@ function PostItem({ post }: PostItemProps) {
   // console.log(post);
   return (
     <div
-      className="bg-[#FEFEFF] flex flex-col rounded-lg hover:bg-opacity-20 cursor-pointer shadow-md p-2"
+      className="bg-[#FEFEFF] flex flex-col rounded-lg hover:bg-opacity-20 cursor-pointer shadow-md p-2 "
       onClick={goToPost}
     >
       <div className="flex justify-between items-center">
@@ -108,7 +120,30 @@ function PostItem({ post }: PostItemProps) {
           </div>
         )}
       </div>
-      <p className="p-2 ">{post?.body}</p>
+
+      {showInput ? (
+        <p
+          className="p-2 w-full break-words"
+          onClick={(e) => {
+            e.stopPropagation();
+            setShowInput(!showInput);
+          }}
+        >
+          {post?.body}
+        </p>
+      ) : (
+        (
+          <p
+            className="p-2 w-full break-words"
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowInput(!showInput);
+            }}
+          >
+            {trunicate(post?.body, 50)}
+          </p>
+        )!
+      )}
       {post?.image && (
         <div className="relative w-full  mb-2 h-[300px] px-2 py-4">
           <Image
