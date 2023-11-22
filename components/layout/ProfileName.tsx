@@ -27,7 +27,7 @@ function ProfileName({
   return (
     <div>
       {profileName.length > 0 && (
-        <div className="bg-white absolute left-5 z-10 top-11 rounded-md shadow-md p-2 w-[240px] gap-3 flex flex-col max-h-[150px] overflow-y-auto">
+        <div className="bg-white absolute left-2  z-10 top-11 rounded-md shadow-md p-2  max-w-md lg:w-[240px] gap-3 flex flex-col max-h-[150px] overflow-y-auto">
           {profileName.map((item: any, index: number) => (
             <Link
               href={`/users/${item?.id}`}
@@ -38,7 +38,7 @@ function ProfileName({
               }}
               key={index}
             >
-              <div className="w-10 h-10 relative ">
+              <div className="md:w-10 md:h-10 w-7 h-7 relative ">
                 <Image
                   fill
                   className="object-cover rounded-full"
@@ -46,7 +46,7 @@ function ProfileName({
                   src={item?.profileImage}
                 />
               </div>
-              <h1 className="capitalize rounded-md p-1 font-semibold ">
+              <h1 className="capitalize md:text-[15px] text-[13px] rounded-md p-1 font-semibold ">
                 {item?.name}
               </h1>
             </Link>
