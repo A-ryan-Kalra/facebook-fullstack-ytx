@@ -4,9 +4,12 @@ import { Icon } from "@iconify/react";
 import { signOut } from "next-auth/react";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import { useRouter } from "next/router";
+import useUsers from "@/hooks/useUsers";
+import SearchBar from "../SearchBar";
 
 function Sidebar() {
   const { data: session } = useCurrentUser();
+  const { data: users = [], mutate, isLoading } = useUsers();
 
   const items = [
     {
@@ -28,7 +31,10 @@ function Sidebar() {
   ];
   const router = useRouter();
   return (
-    <div className="col-span-1   ">
+    <div className="col-span-1 ">
+      <div className="md:hidden justify-end flex ">
+        <SearchBar users={users} isLoading={isLoading} />
+      </div>
       <div className="gap-3 flex flex-col w-max ml-auto">
         <Icon
           onClick={() => router.push("/")}

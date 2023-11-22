@@ -16,7 +16,7 @@ function ProfileName({
   setProfileName,
   setSearchName,
 }: ProfileNameProps) {
-  console.log(profileName);
+  // console.log(profileName);
   if (isLoading || !profileName) {
     return (
       <div className="bg-transparent absolute left-20 top-0 p-2 w-[240px]  flex flex-col  overflow-y-auto">

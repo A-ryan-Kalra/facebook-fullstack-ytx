@@ -24,12 +24,12 @@ function SearchBar({ users, isLoading }: SearchbarProps) {
     }
   }
   return (
-    <div className="flex items-center mt-2 s justify-center relative">
+    <div className="flex items-center mt-2  relative">
       <form>
         <div className="flex justify-between bg-white shadow-md rounded-full items-center">
           <input
             type="text"
-            className=" rounded-full h-10 bg-transparent p-2 text-[14px] focus:outline-none"
+            className=" rounded-full h-10  w-full bg-transparent p-2 text-[14px] focus:outline-none"
             placeholder="Search"
             value={searchName}
             onChange={(e) => {
