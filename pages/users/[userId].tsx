@@ -21,7 +21,7 @@ function UserProfile() {
     );
   }
   mutate();
-  // console.log(data);
+  // console.log(isLoading);
   return (
     <div>
       <UserHero userId={userId as string} />

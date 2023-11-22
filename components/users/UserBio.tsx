@@ -6,14 +6,21 @@ import usePost from "@/hooks/usePost";
 import useUser from "@/hooks/useUser";
 import useFollow from "@/hooks/useFollow";
 import useEditModal from "@/hooks/useEdit";
+import { ClipLoader } from "react-spinners";
 
 interface UserBioProps {
   userId: string;
 }
 
 function UserBio({ userId }: UserBioProps) {
-  const { data: currentUser, error, isLoading, mutate } = useCurrentUser();
-  const { data: fetchedUser } = useUser(userId);
+  const {
+    data: currentUser,
+    error,
+    isLoading: currentUserLoading,
+    mutate,
+  } = useCurrentUser();
+
+  const { data: fetchedUser, isLoading } = useUser(userId);
   const { isFollowing, toggleFollow } = useFollow(userId);
   // console.log(fetchedUser);
   const [type, setType] = useState("");
@@ -25,6 +32,11 @@ function UserBio({ userId }: UserBioProps) {
     return type;
   }, [isFollowing, type]);
 
+  if (isLoading) {
+    <ClipLoader size={80} color="black" />;
+  }
+
+  console.log(fetchedUser);
   return (
     <div className="pb-4 shadow-md rounded-b-xl mb-2 bg-white">
       <div className="flex justify-end p-2">
@@ -69,9 +81,11 @@ function UserBio({ userId }: UserBioProps) {
         </h1>
         <div className="flex  py-2 gap-3 items-center cursor-default">
           <Icon icon="solar:calendar-line-duotone" width={26} />
-          <h1 className="text-zinc-600 text-[15px]">
-            Joined {format(new Date(fetchedUser.createdAt), "MMMM yyyy")}
-          </h1>
+          {fetchedUser?.createdAt && (
+            <h1 className="text-zinc-600 text-[15px]">
+              Joined {format(new Date(fetchedUser.createdAt), "MMMM yyyy")}
+            </h1>
+          )}
         </div>
         <div className="flex gap-5 cursor-default">
           <h1>
