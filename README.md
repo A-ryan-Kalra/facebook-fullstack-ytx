@@ -1,4 +1,4 @@
-## Visit the below link to check out my new full-stack project :D
+## Visit the link below to check out my new full-stack project :D
 ## https://facebook-fullstack-ytx.vercel.app/
 
 First, run the development server:
