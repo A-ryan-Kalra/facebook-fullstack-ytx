@@ -30,6 +30,7 @@ function Sidebar() {
     },
   ];
   const router = useRouter();
+  mutate();
   return (
     <div className="col-span-1 ">
       <div className="md:hidden justify-end flex ">

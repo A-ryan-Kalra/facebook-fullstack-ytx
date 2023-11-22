@@ -43,7 +43,7 @@ function ProfileName({
                   fill
                   className="object-cover rounded-full"
                   alt="image"
-                  src={item?.profileImage}
+                  src={item?.profileImage || "/images/download.png"}
                 />
               </div>
               <h1 className="capitalize md:text-[15px] text-[13px] rounded-md p-1 font-semibold ">

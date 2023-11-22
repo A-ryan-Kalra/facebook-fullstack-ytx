@@ -11,7 +11,6 @@ function SearchBar({ users, isLoading }: SearchbarProps) {
   let [profileName, setProfileName] = useState([]);
   let [searchName, setSearchName] = useState("");
   //   console.log(users);
-
   function search(searchName: string) {
     if (!searchName.trim()) {
       setProfileName([]);
