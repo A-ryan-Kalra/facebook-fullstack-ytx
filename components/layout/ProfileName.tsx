@@ -36,6 +36,7 @@ function ProfileName({
                 setProfileName();
                 setSearchName();
               }}
+              key={index}
             >
               <div className="w-10 h-10 relative ">
                 <Image
@@ -45,10 +46,7 @@ function ProfileName({
                   src={item?.profileImage}
                 />
               </div>
-              <h1
-                className="capitalize rounded-md p-1 font-semibold "
-                key={index}
-              >
+              <h1 className="capitalize rounded-md p-1 font-semibold ">
                 {item?.name}
               </h1>
             </Link>
