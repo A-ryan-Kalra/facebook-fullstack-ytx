@@ -36,7 +36,7 @@ function UserBio({ userId }: UserBioProps) {
     <ClipLoader size={80} color="black" />;
   }
 
-  console.log(fetchedUser);
+  // console.log(fetchedUser);
   return (
     <div className="pb-4 shadow-md rounded-b-xl mb-2 bg-white">
       <div className="flex justify-end p-2">

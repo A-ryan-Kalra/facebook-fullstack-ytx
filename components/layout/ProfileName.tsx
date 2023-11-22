@@ -19,7 +19,7 @@ function ProfileName({
   // console.log(profileName);
   if (isLoading || !profileName) {
     return (
-      <div className="bg-transparent absolute left-20 top-0 p-2 w-[240px]  flex flex-col  overflow-y-auto">
+      <div className="bg-transparent absolute left-10 md:left-20 top-0 p-2 w-[240px]  flex flex-col  overflow-y-auto">
         <ClipLoader size={30} color="blue" />
       </div>
     );

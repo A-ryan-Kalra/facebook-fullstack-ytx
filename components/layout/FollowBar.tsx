@@ -20,7 +20,7 @@ function FollowBar() {
   mutate();
 
   return (
-    <div className="flex flex-col gap-14 ml-5 ">
+    <div className="md:flex flex-col gap-14 ml-5 hidden ">
       <SearchBar users={users} isLoading={isLoading} />
 
       <div className=" bg-gradient-to-br from-[#1777F2]/20 to-fuchsia-400/20 p-2 mt-2 hidden md:block rounded-xl h-max shadow-xl max-h-[280px] overflow-y-auto">
