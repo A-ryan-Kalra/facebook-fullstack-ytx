@@ -32,7 +32,7 @@ function Sidebar() {
   const router = useRouter();
   mutate();
   return (
-    <div className="col-span-1 ">
+    <div className="col-span-1 sticky top-0">
       <div className="md:hidden justify-end flex ">
         <SearchBar users={users} isLoading={isLoading} />
       </div>

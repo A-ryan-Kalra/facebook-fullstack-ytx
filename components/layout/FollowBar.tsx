@@ -20,10 +20,10 @@ function FollowBar() {
   mutate();
 
   return (
-    <div className="md:flex flex-col gap-14 ml-5 hidden ">
+    <div className="md:flex flex-col gap-14 ml-5 hidden relative">
       <SearchBar users={users} isLoading={isLoading} />
 
-      <div className=" bg-gradient-to-br from-[#1777F2]/20 to-fuchsia-400/20 p-2 mt-2 hidden md:block rounded-xl h-max shadow-xl max-h-[280px] overflow-y-auto">
+      <div className="sticky top-14 bg-gradient-to-br from-[#1777F2]/20 to-fuchsia-400/20 p-2 mt-2 hidden md:block rounded-xl h-max shadow-xl max-h-[280px] overflow-y-auto">
         <div>
           <h1 className="text-xl px-2 py-4 font-semibold cursor-default text-left">
             Who to Follow
