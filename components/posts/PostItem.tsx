@@ -24,7 +24,7 @@ function PostItem({ post }: PostItemProps) {
   const { hasLiked, toggleLike } = useLike({ postId: post?.id });
   const { delPost } = useDeletePost(post?.id);
   const router = useRouter();
-  const [liked, setLiked] = useState(hasLiked);
+  const [liked, setLiked] = useState(false);
   // console.log(!currentUser);
 
   const trunicate = (body: string, n: number): string | JSX.Element => {
