@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import useCurrentUser from "./useCurrentUser";
 import usePost from "./usePost";
 import useLoginModal from "./useLogin";
@@ -17,13 +17,14 @@ const useLike = ({ postId, userId }: { postId: string; userId?: string }) => {
     const list = fetchedPost?.likedIds || [];
     return list.includes(currentUser?.id);
   }, [currentUser, fetchedPost]);
+  const [liked1, setLiked1] = useState(false);
 
   const toggleLike = useCallback(
-    async (liked: string) => {
+    async (liked: boolean) => {
       if (!currentUser) {
         login.onOpen();
       }
-
+      setLiked1(liked);
       try {
         let request;
         if (liked) {
@@ -48,6 +49,8 @@ const useLike = ({ postId, userId }: { postId: string; userId?: string }) => {
       mutateFetchedPosts,
       postId,
       hasLiked,
+      setLiked1,
+      liked1,
     ]
   );
 
