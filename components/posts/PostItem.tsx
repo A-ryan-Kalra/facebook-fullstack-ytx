@@ -68,9 +68,9 @@ function PostItem({ post }: PostItemProps) {
       if (!currentUser) {
         return login.onOpen();
       }
-      toggleLike(liked);
+      toggleLike();
     },
-    [currentUser, login, toggleLike, liked, setLiked]
+    [currentUser, hasLiked, login, toggleLike, liked, setLiked]
   );
 
   const onDeletePost = useCallback(
@@ -167,7 +167,7 @@ function PostItem({ post }: PostItemProps) {
       )}
       <div className="flex gap-5 items-center">
         <div className="border-2 p-1 rounded-full cursor-pointer hover:bg-neutral-500/20 active:scale-110">
-          {currentUser && liked && hasLiked ? (
+          {currentUser && liked ? (
             <Icon icon="solar:like-bold-duotone" width={20} onClick={onLike} />
           ) : (
             <Icon icon="solar:like-broken" width={20} onClick={onLike} />

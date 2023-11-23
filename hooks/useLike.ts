@@ -12,48 +12,43 @@ const useLike = ({ postId, userId }: { postId: string; userId?: string }) => {
   const { mutate: mutateFetchedPosts } = usePosts(userId);
 
   const login = useLoginModal();
-
+  // mutateFetchedPosts();
+  // mutateFetchedPost();
   const hasLiked = useMemo(() => {
     const list = fetchedPost?.likedIds || [];
+
     return list.includes(currentUser?.id);
   }, [currentUser?.id, fetchedPost?.likedIds]);
 
-  const [liked1, setLiked1] = useState(false);
+  const toggleLike = useCallback(async () => {
+    if (!currentUser) {
+      login.onOpen();
+    }
 
-  const toggleLike = useCallback(
-    async (liked: boolean) => {
-      if (!currentUser) {
-        login.onOpen();
+    try {
+      let request;
+      if (hasLiked) {
+        request = () => axios.delete("/api/like", { data: { postId } });
+      } else {
+        request = () => axios.post("/api/like", { postId });
       }
-      setLiked1(liked);
-      try {
-        let request;
-        if (liked) {
-          request = () => axios.delete("/api/like", { data: { postId } });
-        } else {
-          request = () => axios.post("/api/like", { postId });
-        }
-        await request();
-        mutateFetchedPost();
-        mutateCurrentUser();
-        mutateFetchedPosts();
-      } catch (error) {
-        if (currentUser) toast.error("Something went wrong");
-        console.log(error);
-      }
-    },
-    [
-      currentUser,
-      login,
-      mutateCurrentUser,
-      mutateFetchedPost,
-      mutateFetchedPosts,
-      postId,
-      hasLiked,
-      setLiked1,
-      liked1,
-    ]
-  );
+      await request();
+      mutateFetchedPost();
+      mutateCurrentUser();
+      mutateFetchedPosts();
+    } catch (error) {
+      if (currentUser) toast.error("Something went wrong");
+      console.log(error);
+    }
+  }, [
+    currentUser,
+    login,
+    mutateCurrentUser,
+    mutateFetchedPost,
+    mutateFetchedPosts,
+    postId,
+    hasLiked,
+  ]);
 
   return {
     hasLiked,

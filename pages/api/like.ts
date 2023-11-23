@@ -26,7 +26,9 @@ export default async function handler(
     let updatedLikeIds = [...(post.likedIds || [])];
 
     if (req.method === "POST") {
-      updatedLikeIds.push(currentUser.id);
+      if (!updatedLikeIds.includes(currentUser.id)) {
+        updatedLikeIds.push(currentUser.id);
+      }
 
       try {
         const post = await prisma.post.findUnique({
