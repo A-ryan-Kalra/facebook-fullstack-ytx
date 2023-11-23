@@ -40,7 +40,7 @@ function PostItem({ post }: PostItemProps) {
 
   useEffect(() => {
     setLiked(hasLiked);
-  }, [hasLiked, setLiked]);
+  }, [hasLiked, setLiked, currentUser]);
 
   const goToUser = useCallback(
     (ev: any) => {
@@ -167,7 +167,7 @@ function PostItem({ post }: PostItemProps) {
       )}
       <div className="flex gap-5 items-center">
         <div className="border-2 p-1 rounded-full cursor-pointer hover:bg-neutral-500/20 active:scale-110">
-          {currentUser && liked ? (
+          {currentUser && liked && hasLiked ? (
             <Icon icon="solar:like-bold-duotone" width={20} onClick={onLike} />
           ) : (
             <Icon icon="solar:like-broken" width={20} onClick={onLike} />
