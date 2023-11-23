@@ -40,7 +40,7 @@ function PostItem({ post }: PostItemProps) {
 
   useEffect(() => {
     setLiked(hasLiked);
-  }, [hasLiked, setLiked, currentUser]);
+  }, [hasLiked, setLiked]);
 
   const goToUser = useCallback(
     (ev: any) => {
