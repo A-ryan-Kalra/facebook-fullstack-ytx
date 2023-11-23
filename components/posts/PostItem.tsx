@@ -26,7 +26,7 @@ function PostItem({ post }: PostItemProps) {
   const router = useRouter();
   const [liked, setLiked] = useState(hasLiked);
   // console.log(!currentUser);
-
+  const [likeCounter, setLikeCounter] = useState("");
   const trunicate = (body: string, n: number): string | JSX.Element => {
     return body?.length > n ? (
       <>
@@ -37,11 +37,16 @@ function PostItem({ post }: PostItemProps) {
       body
     );
   };
-  console.log("liked " + liked);
-  console.log("hasLiked " + hasLiked);
+  // console.log("liked " + liked);
+  // console.log("hasLiked " + hasLiked);
+
   useEffect(() => {
     setLiked(hasLiked);
   }, [hasLiked, setLiked]);
+
+  useEffect(() => {
+    setLikeCounter(post?.likedIds?.length);
+  }, []);
 
   const goToUser = useCallback(
     (ev: any) => {
@@ -174,7 +179,9 @@ function PostItem({ post }: PostItemProps) {
             <Icon icon="solar:like-broken" width={20} onClick={onLike} />
           )}
         </div>
-        <span className="text-black -ml-4">{post?.likedIds?.length}</span>
+        <span className="text-black -ml-4">
+          {liked ? likeCounter + 1 : likeCounter}
+        </span>
         <div className="border-2 p-1 rounded-full cursor-pointer hover:bg-neutral-500/20 active:scale-110">
           <Icon icon="iconamoon:comment-bold" width={20} />
         </div>
