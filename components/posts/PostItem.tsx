@@ -10,6 +10,7 @@ import usePost from "../../hooks/usePost";
 import useLike from "@/hooks/useLike";
 import useDeletePost from "@/hooks/useDeletePost";
 import fetcher from "@/libs/fetcher";
+import { ClipLoader } from "react-spinners";
 
 interface PostItemProps {
   post: Record<string, any>;
@@ -67,7 +68,7 @@ function PostItem({ post }: PostItemProps) {
       if (!currentUser) {
         return login.onOpen();
       }
-      toggleLike();
+      toggleLike(liked);
     },
     [currentUser, login, toggleLike, liked, setLiked]
   );
@@ -145,13 +146,23 @@ function PostItem({ post }: PostItemProps) {
         )!
       )}
       {post?.image && (
-        <div className="relative w-full  mb-2 h-[300px] px-2 py-4">
+        <div className="relative w-full bg-transparent z-[0] mb-2 h-[300px] px-2 py-4">
           <Image
             fill
-            alt="body-image"
-            src={post?.image}
-            className="object-cover  rounded-xl p-1"
+            alt="image"
+            src={post?.image || ""}
+            className="object-contain rounded-xl p-1"
           />
+          <div className="absolute bg-transparent top-0 left-0 -z-[1] w-full h-full">
+            <Image
+              fill
+              alt="image"
+              src={post?.image || ""}
+              className="object-cover  rounded-xl p-1"
+            />
+            <div className="absolute top-0 left-0 h-full w-full bg-white/40 "></div>
+            <div className="absolute top-0 left-0 h-full w-full bg-black/60 "></div>
+          </div>
         </div>
       )}
       <div className="flex gap-5 items-center">

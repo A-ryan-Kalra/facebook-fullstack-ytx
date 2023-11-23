@@ -15,7 +15,7 @@ function UserHero({ userId }: UserHeroProps) {
         {data?.coverImage && (
           <Image
             alt="coverImage"
-            src={data?.coverImage}
+            src={data?.coverImage || ""}
             fill
             className="object-cover items-end"
           />
@@ -24,9 +24,9 @@ function UserHero({ userId }: UserHeroProps) {
           <div className=" relative w-32  h-32">
             {data?.profileImage && (
               <Image
-                alt="display-profile"
+                alt="displayProfile"
                 className="rounded-full object-cover"
-                src={data?.profileImage}
+                src={data?.profileImage || ""}
                 fill
               />
             )}

@@ -113,7 +113,7 @@ function ImagePostUpload({ label, onChange, disabled, value }: DropZoneProps) {
                   key={index}
                 >
                   <Image
-                    src={`${URL.createObjectURL(image)}`}
+                    src={`${URL.createObjectURL(image)}` || ""}
                     key={index}
                     className="object-contain"
                     fill
