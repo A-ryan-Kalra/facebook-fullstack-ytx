@@ -174,13 +174,7 @@ function PostItem({ post }: PostItemProps) {
             <Icon icon="solar:like-broken" width={20} onClick={onLike} />
           )}
         </div>
-        <span className="text-black -ml-4">
-          {liked && hasLiked
-            ? post?.likedIds?.length
-            : liked
-            ? post?.likedIds?.length + 1
-            : post?.likedIds?.length}
-        </span>
+        <span className="text-black -ml-4">{post?.likedIds?.length}</span>
         <div className="border-2 p-1 rounded-full cursor-pointer hover:bg-neutral-500/20 active:scale-110">
           <Icon icon="iconamoon:comment-bold" width={20} />
         </div>
