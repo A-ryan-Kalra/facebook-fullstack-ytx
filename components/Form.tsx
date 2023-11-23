@@ -31,7 +31,7 @@ function Form({ label, isComment, postId }: FormProps) {
   const [upload, setUpload] = useAtom(uploadAtom1);
   const [disabled1, setDisabled1] = useAtom(postUpload);
   const [imageUploaded, setImageUploaded] = useAtom(uploadAtom2);
-
+  // console.log(upload);
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -52,6 +52,7 @@ function Form({ label, isComment, postId }: FormProps) {
       toast.error("Something went wrong");
     } finally {
       setIsLoading(false);
+      // setUpload(true);
       setDisabled1(true);
     }
   }, [body, mutatePosts, mutatePost, postId, isComment, postImage]);
@@ -92,7 +93,11 @@ function Form({ label, isComment, postId }: FormProps) {
               className="bg-[#1777F2] focus:outline-none active:scale-105 text-white font-semibold px-3 py-2 shadow-md hover:bg-opacity-80 rounded-full disabled:cursor-not-allowed disabled:bg-zinc-400 disabled:active:scale-100"
               onClick={onSubmit}
               disabled={
-                imageUploaded ? false : isLoading || upload || !body.trim()
+                isComment
+                  ? isLoading || !body.trim()
+                  : imageUploaded
+                  ? false
+                  : isLoading || upload || !body.trim()
               }
             >
               Post
