@@ -39,8 +39,8 @@ function Sidebar() {
       <div className="gap-3 flex flex-col w-max ml-auto">
         <Icon
           onClick={() => router.push("/")}
-          icon="logos:facebook"
-          className="active:scale-105 cursor-pointer shadow-md bg-[#FEFEFF] rounded-full mt-2 p-2 w-[53px] h-[53px] md:w-[64px]  md:h-[64px]"
+          icon="fluent:people-community-add-28-filled"
+          className="active:scale-105 cursor-pointer shadow-md bg-gradient-to-br to-white from-yellow-300 rounded-full mt-2 p-2 w-[53px] h-[53px] md:w-[64px]  md:h-[64px]"
         />
         {items.map((item, index: number) => (
           <SidebarItem
