@@ -36,7 +36,7 @@ function PostItem({ post }: PostItemProps) {
       body
     );
   };
-
+  console.log("asds");
   useEffect(() => {
     setLiked(hasLiked);
   }, [hasLiked, setLiked]);
