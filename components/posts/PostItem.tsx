@@ -155,8 +155,8 @@ function PostItem({ post }: PostItemProps) {
               src={post?.image || ""}
               className="object-cover  rounded-xl p-1"
             />
-            <div className="absolute top-0 left-0 h-full w-full bg-white/40 "></div>
-            <div className="absolute top-0 left-0 h-full w-full bg-black/60 "></div>
+            <div className="absolute top-0 left-0 h-full w-full bg-white/60 "></div>
+            <div className="absolute top-0 left-0 h-full w-full bg-black/40 "></div>
           </div>
         </div>
       )}

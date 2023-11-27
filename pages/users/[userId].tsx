@@ -36,8 +36,12 @@ export default UserProfile;
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
-  setTimeout(() => {
+  const result = await (async () => {
+    await delay(100);
+
     if (!session) {
       return {
         redirect: {
@@ -46,11 +50,13 @@ export async function getServerSideProps(context: NextPageContext) {
         },
       };
     }
-  }, 100);
 
-  return {
-    props: {
-      session,
-    },
-  };
+    return {
+      props: {
+        session,
+      },
+    };
+  })();
+
+  return result;
 }
