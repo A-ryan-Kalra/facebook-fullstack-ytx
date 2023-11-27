@@ -25,13 +25,13 @@
  <h2>User Panel</h2>
   <ul>
   <li>User can freely visit each other's profile. ✔</li>
-  <li>Unauthorized users <strong>can not</strong> comment and like on any post.</li>
-  <li>Users with authorization can interact with each other's post by <strong>commenting </strong>and <strong>liking</strong>.</li>
-  <li>Users can <strong>follow</strong> each other along with <strong>unfollow feature</strong>. </li>
-  <li>Users also get <strong>notification</strong> updates regarding their posts,likes and comments. </li>
-  <li>Users can upload their favorite <strong>images</strong> to display on their profile, along with a <strong>cover photo</strong> for the wall.</li>
-  <li>It also comes with a search functionality, allowing users to visit each other's profiles by searching.</li>
-  <li>Many more to come.</li>
+  <li>Unauthorized users <strong>can not</strong> comment and like on any post. ✔</li>
+  <li>Users with authorization can interact with each other's post by <strong>commenting </strong>and <strong>liking</strong>. ✔</li>
+  <li>Users can <strong>follow</strong> each other along with <strong>unfollow feature</strong>.  ✔</li>
+  <li>Users also get <strong>notification</strong> updates regarding their posts,likes and comments.  ✔</li>
+  <li>Users can upload their favorite <strong>images</strong> to display on their profile, along with a <strong>cover photo</strong> for the wall. ✔</li>
+  <li>It also comes with a search functionality, allowing users to visit each other's profiles by searching. ✔</li>
+  <li>Many more to come. ✔</li>
   </ul>
 </br>
 
