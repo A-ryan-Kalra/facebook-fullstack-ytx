@@ -48,15 +48,9 @@ export async function getServerSideProps(context: NextPageContext) {
     }
   }, 100);
 
-  if (session) {
-    return {
-      props: {
-        session,
-      },
-    };
-  } else {
-    return {
-      props: {},
-    };
-  }
+  return {
+    props: {
+      session,
+    },
+  };
 }

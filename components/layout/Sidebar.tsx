@@ -6,6 +6,7 @@ import useCurrentUser from "@/hooks/useCurrentUser";
 import { useRouter } from "next/router";
 import useUsers from "@/hooks/useUsers";
 import SearchBar from "../SearchBar";
+import Image from "next/image";
 
 function Sidebar() {
   const { data: session } = useCurrentUser();
@@ -37,11 +38,15 @@ function Sidebar() {
         <SearchBar users={users} isLoading={isLoading} />
       </div>
       <div className="gap-3 flex flex-col w-max ml-auto">
-        <Icon
-          onClick={() => router.push("/")}
-          icon="octicon:hubot-24"
-          className="active:scale-105 cursor-pointer shadow-md bg-gradient-to-br to-yellow-200 from-fuchsia-400 rounded-full mt-2 p-2 w-[53px] h-[53px] md:w-[64px]  md:h-[64px]"
-        />
+        <div className="relative w-[53px] mt-2 rounded-full h-[53px] md:w-[74px]  md:h-[74px]">
+          <Image
+            onClick={() => router.push("/")}
+            alt="image"
+            src={"/images/myhub.png"}
+            className="active:scale-105 cursor-pointer shadow-md bg-gradient-to-br rounded-full "
+            fill
+          />
+        </div>
         {items.map((item, index: number) => (
           <SidebarItem
             key={index}
