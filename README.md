@@ -31,6 +31,9 @@
   <li>Users also get <strong>notification</strong> updates regarding their posts,likes and comments.  ✔</li>
   <li>Users can upload their favorite <strong>images</strong> to display on their profile, along with a <strong>cover photo</strong> for the wall. ✔</li>
   <li>It also comes with a search functionality, allowing users to visit each other's profiles by searching. ✔</li>
+  <li>Responsive design for mobile, tablet, and desktop. ✔</li>
+  <li>Users can see their and other followers and the following list. ✔</li>
+  <li>All images uploads are stored on Cloudinary Cloud Storage. ✔</li>
   <li>Many more to come. ✔</li>
   </ul>
 </br>
@@ -46,6 +49,7 @@
 <li>Cloudinary for Image database</li>
 <li>useSWR for data revalidation and fetching</li>
 <li>NextAuth.js for authentication along with JWT (JSON Web Tokens) for session management mechanism</li>
+
 </ul>
 
 </br>
