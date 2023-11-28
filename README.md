@@ -7,6 +7,16 @@
 <li>With the assistance of Cloudinary, user can seamlessly store images in the database.</li>
 </ul>
 
+<h2>Credentials</h2>
+<ul>
+<li>You can freely check out my project with given email id and password.
+</br>
+
+->Email: abc@abc.com\
+->Password: abc123
+
+</ul>
+
 <h2>Authors</h2>
 <ul>
 <li><a href="https://github.com/A-ryan-Kalra">Aryan Kalra</a></li>
