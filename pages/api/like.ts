@@ -6,7 +6,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === "GET") {
+  if (req.method !== "POST" && req.method !== "DELETE") {
     return res.status(405).end();
   }
   try {
@@ -23,39 +23,43 @@ export default async function handler(
     if (!post) {
       throw new Error("Invalid id");
     }
-    let updatedLikes = [...(post?.likedIds || [])];
-    if (updatedLikes.includes(currentUser.id)) {
-      updatedLikes = updatedLikes.filter((id) => id !== currentUser.id);
-    } else {
-      updatedLikes.push(currentUser.id);
+    let updatedLikeIds = [...(post.likedIds || [])];
 
-      try {
-        const post = await prisma.post.findUnique({
-          where: {
-            id: postId,
-          },
-        });
+    if (req.method === "POST") {
+      if (!updatedLikeIds.includes(currentUser.id)) {
+        updatedLikeIds.push(currentUser.id);
 
-        if (post?.userId) {
-          await prisma.notification.create({
-            data: {
-              body: "Someone liked your post",
-              userId: post.userId,
+        try {
+          const post = await prisma.post.findUnique({
+            where: {
+              id: postId,
             },
           });
-
+          if (post?.userId) {
+            await prisma.notification.create({
+              data: {
+                body: "Someone liked your post",
+                userId: post.userId,
+              },
+            });
+          }
           await prisma.user.update({
             where: {
-              id: post.userId,
+              id: post?.userId,
             },
             data: {
               hasNotification: true,
             },
           });
+        } catch (error) {
+          console.log(error);
         }
-      } catch (error: any) {
-        console.log(error);
       }
+    }
+    if (req.method === "DELETE") {
+      updatedLikeIds = updatedLikeIds.filter(
+        (likeId) => likeId !== currentUser?.id
+      );
     }
 
     const updatedPost = await prisma.post.update({
@@ -63,7 +67,7 @@ export default async function handler(
         id: postId,
       },
       data: {
-        likedIds: updatedLikes,
+        likedIds: updatedLikeIds,
       },
     });
 
