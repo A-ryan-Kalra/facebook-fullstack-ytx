@@ -4,10 +4,12 @@ import useLoginModal from "./useLogin";
 import useUser from "./useUser";
 import axios from "axios";
 import toast from "react-hot-toast";
+import usePosts from "./usePosts";
 
 const useFollow = (userId: string) => {
   const { data: currentUser, mutate: mutateCurrentUser } = useCurrentUser();
   const { data, mutate: mutateFetchedUser } = useUser(userId);
+  const { data: posts, mutate, error, isLoading } = usePosts();
 
   const login = useLoginModal();
 
@@ -30,6 +32,7 @@ const useFollow = (userId: string) => {
       await request();
       mutateCurrentUser();
       mutateFetchedUser();
+      mutate();
       toast.success(
         !isFollowing
           ? `you are following ${data?.name}`
@@ -39,7 +42,7 @@ const useFollow = (userId: string) => {
       console.log(error);
       toast.error("Something went wrong");
     }
-  }, [mutateCurrentUser, mutateFetchedUser, userId, isFollowing]);
+  }, [mutateCurrentUser, mutateFetchedUser, mutate, userId, isFollowing]);
 
   return {
     isFollowing,
