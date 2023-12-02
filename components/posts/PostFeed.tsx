@@ -8,7 +8,7 @@ function PostFeed() {
   const { data: currentUser } = useCurrentUser();
   const { data: posts, mutate, error, isLoading } = usePosts();
   // console.log(isLoading);
-  console.log(posts);
+
   if (!currentUser) {
     return (
       <div className="flex flex-col h-screen mt-20 items-center">

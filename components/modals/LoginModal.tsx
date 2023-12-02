@@ -35,7 +35,7 @@ function LoginModal() {
         password,
         redirect: false,
       });
-      console.log(result);
+      // console.log(result);
       if (result?.status !== 200) {
         setFlag(true);
         throw new Error("Invalid credentials");
