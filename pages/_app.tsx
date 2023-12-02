@@ -7,6 +7,7 @@ import type { AppProps } from "next/app";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "react-hot-toast";
 import EditModal from "@/components/modals/EditModal";
+import Head from "next/head";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -17,6 +18,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <EditModal />
         <Toaster />
         <Layout>
+          <Head>
+            <title>MyHub</title>
+          </Head>
           <Component {...pageProps} />
         </Layout>
       </Provider>

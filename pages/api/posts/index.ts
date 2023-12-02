@@ -12,8 +12,8 @@ export default async function handler(
   }
 
   try {
+    const { currentUser } = await serverAuth(req, res);
     if (req.method === "POST") {
-      const { currentUser } = await serverAuth(req, res);
       const { body, postImage } = req.body;
 
       const post = await prisma.post.create({
@@ -44,6 +44,11 @@ export default async function handler(
         });
       } else {
         posts = await prisma.post.findMany({
+          where: {
+            userId: {
+              in: [...(currentUser.followingIds || []), currentUser.id],
+            },
+          },
           include: {
             user: true,
             comments: true,

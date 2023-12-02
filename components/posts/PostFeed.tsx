@@ -5,7 +5,7 @@ import { ClipLoader } from "react-spinners";
 import usePost from "../../hooks/usePost";
 function PostFeed() {
   const { data: posts, mutate, error, isLoading } = usePosts();
-  mutate();
+  // console.log(isLoading);
   return (
     <div>
       {!isLoading ? (

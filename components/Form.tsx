@@ -21,6 +21,7 @@ interface FormProps {
 export const postUpload = atom(false);
 function Form({ label, isComment, postId }: FormProps) {
   const { data: session } = useCurrentUser();
+
   const register = useRegisterModal();
   const login = useLoginModal();
   const [body, setBody] = useState("");
