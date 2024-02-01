@@ -77,7 +77,7 @@ function Modal({
           <h2 className="text-zinc-400 text-center">
             {!login.isOpen
               ? "Already have an account?"
-              : "First time using Facebook?"}
+              : "First time using myhub?"}
             <span
               className="text-white hover:underline cursor-pointer ml-1"
               onClick={toggle}
