@@ -103,7 +103,7 @@ Open <a href='http://localhost:3000'>http://localhost:3000</a> with your browser
 <div align="center">
 
 Thank you\
-Made with ❤️ and 💻\
-By Aryan Kalra
+Made with 🖱️ and 💻\
+By Aryan Kalra.
 
 </div>
