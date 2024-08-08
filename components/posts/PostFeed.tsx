@@ -1,7 +1,7 @@
 import usePosts from "@/hooks/usePosts";
 import React from "react";
 import PostItem from "./PostItem";
-import { ClipLoader } from "react-spinners";
+import { ClipLoader, GridLoader } from "react-spinners";
 import usePost from "../../hooks/usePost";
 import useCurrentUser from "@/hooks/useCurrentUser";
 function PostFeed() {
@@ -12,10 +12,11 @@ function PostFeed() {
   if (!currentUser) {
     return (
       <div className="flex flex-col h-screen mt-20 items-center">
-        <div>
-          <ClipLoader color="black" size={80} />
-        </div>
-        <h1 className="font-serif text-xl">Please login to continue</h1>
+        <div>{/* <GridLoader color="black" size={25} /> */}</div>
+        <h1 className="font-serif text-xl md:text-2xl ">
+          To continue enjoying our services,
+          <br /> please log in to your account.
+        </h1>
       </div>
     );
   }
